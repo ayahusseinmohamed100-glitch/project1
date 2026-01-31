@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:video_task/pages/login.dart';
-import 'package:video_task/pages/signup.dart';
-import 'package:video_task/pages/task1.dart';
-import 'package:video_task/pages/task2.dart';
-import 'package:video_task/pages/welcome.dart';
+import 'package:messageme_app/screens/chat_screen.dart';
+import 'package:messageme_app/screens/registration_screen.dart';
+import 'package:messageme_app/screens/signin_screen.dart';
+import 'screens/welcome_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/",
-      routes: {
-        "/": (context) => const Welcome(),
-        "/login": (context) => const Login(),
-        "/signup": (context) => const Signup(),
-        "/task2": (context) => const Task2(),
-        "/task1": (context) => const Task1()
-      },
-    );
+        title: 'MessageMe app',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: ChatScreen(),
+        initialRoute: WelcomeScreen.screenRoute,
+        routes: {
+          WelcomeScreen.screenRoute: (context) => WelcomeScreen(),
+          SignInScreen.screenRoute: (context) => SignInScreen(),
+          RegistrationScreen.screenRoute: (context) => RegistrationScreen(),
+          ChatScreen.screenRoute: (context) => ChatScreen(),
+        });
   }
 }
